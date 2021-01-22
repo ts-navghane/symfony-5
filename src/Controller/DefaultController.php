@@ -37,6 +37,8 @@ class DefaultController extends AbstractController
             'XYZ',
         ];
 
+        dump($this);
+
         return $this->render(
             'default/show.html.twig',
             [
