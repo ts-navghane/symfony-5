@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class DefaultController
+class DefaultController extends AbstractController
 {
     /**
      * @Route("/")
@@ -30,11 +31,18 @@ class DefaultController
      */
     public function showSlug(string $slug): Response
     {
-        return new Response(
-            sprintf(
-                'Test New Route "%s" With Annotations',
-                ucwords(str_replace('-', ' ', $slug))
-            )
+        $testForLoop = [
+            'ABC',
+            'PQR',
+            'XYZ',
+        ];
+
+        return $this->render(
+            'default/show.html.twig',
+            [
+                'slug' => ucwords(str_replace('-', ' ', $slug)),
+                'testForLoop' => $testForLoop
+            ]
         );
     }
 }

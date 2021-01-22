@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Default: {{ slug }}{% endblock %}
+
+{% block body %}
+    <h1>{{ slug }}</h1>
+
+    {# Test comment #}
+
+    <h1>Test loop: ({{ testForLoop|length }})</h1>
+
+    <ul>
+        {% for item in testForLoop %}
+            <li>{{ item }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
