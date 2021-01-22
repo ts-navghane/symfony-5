@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\MarkdownHelper;
 use Knp\Bundle\MarkdownBundle\MarkdownParserInterface;
 use Psr\Cache\InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,8 +28,12 @@ class QuestionController extends AbstractController
      * @Route("/questions/{slug}", name="app_question_show")
      * @throws InvalidArgumentException
      */
-    public function show(string $slug, MarkdownParserInterface $markdownParser, CacheInterface $cache): Response
-    {
+    public function show(
+        string $slug,
+        MarkdownParserInterface $markdownParser,
+        CacheInterface $cache,
+        MarkdownHelper $markdownHelper
+    ): Response {
         $answers = [
             'Make sure your cat is sitting `purrrfectly` still 🤣',
             'Honestly, I like furry shoes better than MY cat',
@@ -37,12 +42,7 @@ class QuestionController extends AbstractController
 
         $questionText = 'I\'ve been turned into a cat, any *thoughts* on how to turn back?
         While I\'m **adorable**, I don\'t really care for cat food.';
-        $parsedQuestionText = $cache->get(
-            'markdown_'.md5($questionText),
-            function () use ($markdownParser, $questionText) {
-                return $markdownParser->transformMarkdown($questionText);
-            }
-        );
+        $parsedQuestionText = $markdownHelper->parse($questionText);
 
         dump($cache);
 
