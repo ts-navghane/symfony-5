@@ -44,6 +44,8 @@ class QuestionController extends AbstractController
             }
         );
 
+        dump($cache);
+
         return $this->render(
             'question/show.html.twig',
             [
