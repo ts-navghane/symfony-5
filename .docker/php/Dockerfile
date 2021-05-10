@@ -30,7 +30,9 @@ RUN apk add --no-cache \
     php8-sodium \
     php8-pecl-apcu \
     make \
-    curl
+    curl \
+    bash \
+    git
 
 # Enable php8-xdebug if $PHP_XDEBUG_MODE is not empty
 ARG PHP_XDEBUG_MODE=off
